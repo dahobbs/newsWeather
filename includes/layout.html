@@ -1,0 +1,151 @@
+<!-- David Hobbs H00251314 layout.html generated from index.php
+		this page uses data from index.php to display API results.
+		This page handles HTML layout using bootstrap for responsiveness.
+		This page also uses JQuery AJAX functions to demonstrate different ways of gathering JSON data
+-->
+
+
+	<header class="col-xs-12"><h1>News Now Weather Portal</h1></header>
+
+
+
+		<div class="col-xs-12 col-sm-3 col-lg-2 weather" >
+			<!-- Weather section, uses php functions to gather JSON data and place the data
+				 using array indexing e.g. $data['weather'][0]['description']
+			 -->
+			<?php echo' <h3>Weather For: '.$data['name'].'<img src="http://openweathermap.org/img/w/'.$data['weather'][0]['icon'].'.png"> </h3>';?>
+			<?php echo' <p>Current Temperature:'.$data['main']['temp'].' °C </p>';?>
+			<?php echo' <p>Current Pressure: '.$data['main']['pressure'].' hPa  </p>';?>
+			<?php echo' <p>Description: '.$data['weather'][0]['description'].'</p>';?>
+			<?php echo' <p>Current cloud coverage: '.$data['clouds']['all'].'%</p>';?>
+			<?php echo' <p>Current Wind Speed: '.$data['wind']['speed'].' Kph</p>';?>
+			<?php echo' <p>Visibility:'.$data['visibility'].' Meters</p>';?>
+			<?php echo' <p>Sunset: '.date('H:i',$data['sys']['sunset']);'</p>';?>
+
+			<?php echo' <h3>Forecast For: '.$data['name'].' </h3>';?>
+			<?php echo' <p>Weather for '.date("l",$day1).': '.$dataForecast['list'][$k]['weather'][0]['description'].'<img src="http://openweathermap.org/img/w/'.$dataForecast['list'][$k]['weather'][0]['icon'].'.png"></p>';?>
+
+			<?php echo' <p>Weather for '.date("l",$day2).': '.$dataForecast['list'][$l]['weather'][0]['description'].'<img src="http://openweathermap.org/img/w/'.$dataForecast['list'][$l]['weather'][0]['icon'].'.png"></p>';?>
+
+			<?php echo' <p>Weather for '.date("l",$day3).': '.$dataForecast['list'][$m]['weather'][0]['description'].'<img src="http://openweathermap.org/img/w/'.$dataForecast['list'][$m]['weather'][0]['icon'].'.png"></p>';?>
+
+			<?php echo' <p>Weather for '.date("l",$day4).': '.$dataForecast['list'][$n]['weather'][0]['description'].'<img src="http://openweathermap.org/img/w/'.$dataForecast['list'][$n]['weather'][0]['icon'].'.png"></p>';?>
+
+			<?php echo' <p>Weather for '.date("l",$day5).': '.$dataForecast['list'][$o]['weather'][0]['description'].'<img src="http://openweathermap.org/img/w/'.$dataForecast['list'][$o]['weather'][0]['icon'].'.png"></p>';?>
+		</div>
+
+
+		<!-- technews uses php funtions from index.php
+				for loop is used to cycle through articles array gathered from newsapi.org to display
+		 -->
+		<div class="col-xs-12 col-sm-5 col-lg-6 technews">
+			<?php echo '<h3>TechNews</h3>' ;?>
+			<?php for ($i=0; $i <4; $i++){ ?>
+
+			<?php echo '<img src="'.$techData['articles'][$i]['urlToImage'].'">';?>
+			<?php echo '<a href="'.$techData['articles'][$i]['url'].'"><h5>'.$techData['articles'][$i]['title'].'</h5></a>';?>
+			<?php echo '<p>'.$techData['articles'][$i]['description'].'</p>';?>
+
+
+
+
+			<?php };?>
+
+		</div>
+
+		<div class="col-xs-12 col-sm-4 col-lg-4 guardNews"><!-- guardian uses XML data parsed into JSON  -->
+			<?php echo '<h3>Guardian</h3>' ;?>
+			<?php for ($i=0; $i <10; $i++){ ?>
+
+
+			<?php echo '<a href="'.$guardianData['results']['result'][$i]['@attributes']['web-url'].'"><h5>'.$guardianData['results']['result'][$i]['@attributes']['web-title'].'</h5></a>';?>
+
+
+			<?php };?>
+
+		</div>
+		<div class="clearfix hidden-xs-block"></div><!-- ensures lower half of contaent stays in the lower half -->
+
+
+		<!-- SkyNews section uses JQuery AJAX technique to gether API data, this has the advantage of using javaScript DOM selection functions to select and append to div sections. This section also uses a setINterval funtion to refersh this section every two minutes.  -->
+		<div class="col-xs-12 col-sm-5 col-sm-offset-3 col-lg-6 col-lg-offset-2 bbcNews">
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+
+
+			function bbcUpdate(){
+			var url = "https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=2a8f4bf4cf994986a677d1cbc81295dd";
+			$.ajax({
+				    type: 'GET',
+				    url: url,
+				    dataType: 'json',
+				    success: function (data) {
+				    $('.bbcNews').empty();
+				    $('.bbcNews').append("<h3>BBC News</h3>");
+				    	for(i=0; i<4; i++){
+
+					$('.bbcNews').append("<img src="+data.articles[i].urlToImage+">");
+				 	$('.bbcNews').append("<a href="+data.articles[i].url+"><h5>"+data.articles[i].title+"</h5></a>");
+				 	$('.bbcNews').append("<p>"+data.articles[i].description+"</p>");
+
+				           };
+
+				        }
+
+				});
+
+			};
+			bbcUpdate();
+			setInterval(function(){ //script to update skyNews API every two minutes
+				bbcUpdate();
+			},120000);
+
+		});
+			</script>
+
+		</div>
+
+
+		<div class="col-xs-12 col-sm-4 col-lg-4 nyTimes">
+			<script type="text/javascript">
+			$(document).ready(function(){
+
+			function nyUpdate(){
+			var url = "https://api.nytimes.com/svc/news/v3/content/all/Sports.json?api-key=90ba90fc5ddd4ce19de7036e67ae61c4&q=sport&sort=newest";
+
+			$.ajax({
+				    type: 'GET',
+				    url: url,
+				    dataType: 'json',
+				    success: function (nydata) {
+				    $('.nyTimes').empty(nydata);
+				    $('.nyTimes').append("<h3>NY Sports</h3>");
+
+				    	for(h=0; h<6; h++){
+
+
+				 	$('.nyTimes').append("<a href="+nydata.results[h].url+"><h5>"+nydata.results[h].title+"</h5></a>");
+				 	$('.nyTimes').append("<p>"+nydata.results[h].abstract+"</p>");
+
+				           };
+				        }
+
+				});
+
+			};
+			nyUpdate();
+			setInterval(function(){ //script to update nyTimes API every two minutes
+				nyUpdate();
+			},120000);
+
+		});
+			</script>
+		</div>
+	<!-- boostrap CDN link  -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+
+
+
+	</body>
+</html>

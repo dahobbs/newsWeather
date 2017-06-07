@@ -1,0 +1,169 @@
+/* David Hobbs H00251314 CSS Stylesheet for portal aggregator website
+	This website uses a mobile first design method. Styling is defined for small screens and then 
+	any adjustments to layout are implemented using media queries further down this page.
+	Media Queries use min-width format to accumulate changes as the viewport grows wider.
+
+ */
+
+body{
+	background-color: #15B7ED;
+	font-size: 12px;
+	font-family: 'Cabin', regular; /* googlefont link located in head.html */
+
+}
+header{
+	display:block;
+	margin-bottom: 2%; /* using percentages to determine width so margins and images will shrink or grow depending on viewport size */
+	border-bottom: 2px solid #000; /* border section divides title from body */
+}
+
+
+h1{
+	font-size: 24px;
+	font-family: 'Fjalla One', bold; /* googlefont link located in head.html */
+	text-align: center;
+	display:none; /* this is so JQuery can fade in Header text */
+
+}
+
+h3{
+	font-family: 'Fjalla One', bold;
+	font-size: 18px;
+	margin-top: 5px;
+	margin-bottom:0px;
+}
+
+a{
+	color:white;
+
+}
+
+h5{
+	font-size: 14px;
+	margin:0;
+}
+p{
+
+	margin:0;
+}
+
+
+.weather img{
+	width:8%;
+	}
+
+
+.technews p{
+	margin-bottom: 2%;
+}
+.technews img{
+	float:left;
+	width:40%; 
+	margin-right:2px;
+	margin-bottom: 2px;
+	clear:left;
+	
+		
+
+}
+.guardNews h5{
+	margin-bottom:3%;
+}
+.bbcNews img{
+	float:left;
+	width:40%;
+	margin-right:2px;
+	margin-bottom: 2px;
+	clear:left;
+	
+}
+.bbcNews p{
+	margin-bottom: 8%;
+}
+
+/* ******************** MEDIA QUERIES ************************ */
+@media (min-width: 768px){
+
+body{
+	
+	font-size: 14px;
+}
+
+
+h1{
+	font-size: 40px;
+	text-align: center;
+}
+
+h3{
+	font-size: 16px;
+	margin-top: 5px;
+	margin-bottom:10px;
+}
+
+a{
+	color:white;
+
+}
+
+h5{
+	font-size: 16px;
+	margin-bottom:5px;
+}
+p{
+
+	margin:0 5px 10px 0;
+}
+
+.weather img{
+	width:15%;
+	}
+.weather p{
+	margin:0;
+}
+
+
+.technews{
+	border-left:0.5px solid #000;
+}
+
+.technews p{
+	margin-bottom: 3%;
+}	
+.technews img{
+	float:left;
+	width:15%;
+	margin-right:1%;
+	
+		
+
+}
+
+.bbcNews{
+	border-left:0.5px solid #000;
+}
+
+.bbcNews img{
+	float:left;
+	width:17%;
+	margin-right:1%;
+	
+		
+
+}
+}
+
+@media (min-width: 976px){
+.technews p{
+	margin-bottom: 5%;
+}	
+
+
+
+}
+@media (min-width: 1400px){
+.guardNews h5{
+	margin-bottom: 3%;
+}	
+
+}
